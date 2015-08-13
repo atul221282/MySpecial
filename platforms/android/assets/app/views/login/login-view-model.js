@@ -8,6 +8,7 @@ var loginViewModel = {
 	Login: function () {
 
 		var hh = http;
+		hh = hh;
         debugger;
 
 		mySpecialAPI.Login('Audience/SetClient', { "UserName": 'SuperUser', "Password": 'SuperUser' }, function (data) {

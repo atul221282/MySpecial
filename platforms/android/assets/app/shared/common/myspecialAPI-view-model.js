@@ -32,15 +32,10 @@ exports.Login = function (endpoint, content, successCallBack, errorCallBack, hea
 	}).then(successCallBack).catch(errorCallBack);
 };
 
-exports.headers = {
-	"Content-Type": "application/json",
-	"X-ClientType": "native_client",
-	
+exports.SetAuthToken = function (authToken) {
+	config.authToken = "Bearer " + authToken;
 };
 
-exports.SetAuthToken = function (authToken) {
-	exports.headers.Authorization: config.authToken
-};
 
 
 
@@ -50,7 +45,11 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 		url: config.apiUrl + endpoint,
 		method: method,
 		content: JSON.stringify(content),
-		headers: !headers ? exports.headers : headers
+		headers: !headers ? {
+			"Content-Type": "application/json",
+			"X-ClientType": "native_client",
+			"Authorization": config.authToken
+		} : headers
 	}).then(successCallBack).catch(errorCallBack);
 }
 
