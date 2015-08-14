@@ -297,6 +297,7 @@ C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\xml\packag
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\xml\xml.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\login \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\login\login-view-model.js \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\login\login.css \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\login\login.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\login\login.xml \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\internal\prepareExtend.js \

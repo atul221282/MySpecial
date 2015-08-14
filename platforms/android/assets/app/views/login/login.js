@@ -1,13 +1,19 @@
-var loginViewModel = require("./login-view-model");
+var LoginViewModel = require("./login-view-model");
+
+var loginVM = new LoginViewModel({
+	email: "SuperUser",
+	password: "SuperUser"
+});
+
+exports.pageLoaded = pageLoaded;
+exports.signIn = signIn;
 
 
-exports.pageLoaded=function(args) {
-	debugger;
-    var page = args.object;
-    page.bindingContext = loginViewModel;
+function pageLoaded(args){
+	var page = args.object;
+    page.bindingContext = loginVM;
 }
 
-exports.signIn = function() {
-	debugger;
-	loginViewModel.LoginViewModel.Login();
+function signIn () {
+	loginVM.Login();
 }
