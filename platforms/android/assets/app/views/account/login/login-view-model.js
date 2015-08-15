@@ -1,8 +1,9 @@
-var mySpecialAPI = require("../../shared/common/myspecialAPI-view-model");
+var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
+var config = require("../../../shared/common/config");
 var observable = require("data/observable");
 var http = require("http");
 
-function LoginVM(info) {
+function loginViewModel(info) {
 	info = info || {};
 
 	// You can add properties to observables on creation
@@ -14,8 +15,6 @@ function LoginVM(info) {
 	viewModel.Login = Login;
 	
 	return viewModel;
-	
-	
 	
 	function Login(){
 		mySpecialAPI.Login('Audience/SetClient', { 
@@ -34,10 +33,7 @@ function LoginVM(info) {
 	}
 }
 
-
-
-
-module.exports = LoginVM;
+module.exports = loginViewModel;
 
 
 

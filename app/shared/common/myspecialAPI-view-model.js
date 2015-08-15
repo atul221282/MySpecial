@@ -1,6 +1,6 @@
 var http = require("http");
 var config = require("./config");
-var observableModule = require("data/observable");
+
 
 // POST Call to an API
 exports.Post = function (endpoint, content, successCallBack, errorCallBack, headers) {
@@ -8,7 +8,6 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	debugger;
 	return pvtAPI('GET', endpoint, content, successCallBack, errorCallBack, headers);
 };
 // POST Call to an API
@@ -35,6 +34,11 @@ exports.Login = function (endpoint, content, successCallBack, errorCallBack, hea
 exports.SetAuthToken = function (authToken) {
 	config.authToken = "Bearer " + authToken;
 };
+
+exports.headers={
+	"Content-Type": "application/json",
+			"X-ClientType": "native_client"
+}
 
 function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, headers) {
 
