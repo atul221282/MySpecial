@@ -12,21 +12,27 @@ function loginViewModel(info) {
 		password: info.password || "",
 
 	});
+	
+	viewModel.progress =0;
 	viewModel.Login = Login;
 	
 	return viewModel;
 	
 	function Login(){
+		
 		mySpecialAPI.Login('Audience/SetClient', { 
 					"UserName": viewModel.get("email"),
 					"Password": viewModel.get("password") }, function (data) {
 				mySpecialAPI.SetAuthToken(data.content.toJSON().access_token);
 				mySpecialAPI.GET("protected", void 0, function (inData) {
+					viewModel.progress=100;
 					alert(JSON.stringify(inData));
 				}, function (error) {
+					viewModel.progress=100;
 					alert(JSON.stringify(error));
 				}, void 0);
 			}, function (error) {
+				viewModel.progress=100;
 				alert(error);
 			}, void 0);
     

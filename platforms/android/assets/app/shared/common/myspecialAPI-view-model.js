@@ -35,6 +35,11 @@ exports.SetAuthToken = function (authToken) {
 	config.authToken = "Bearer " + authToken;
 };
 
+exports.headers={
+	"Content-Type": "application/json",
+			"X-ClientType": "native_client"
+}
+
 function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, headers) {
 
 	return http.request({
