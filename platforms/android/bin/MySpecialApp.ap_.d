@@ -296,11 +296,17 @@ C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\utils\util
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\xml\package.json \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\xml\xml.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account\login \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account\login\login-view-model.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account\login\login.css \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account\login\login.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\account\login\login.xml \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer\index \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer\index\index-view-model.js \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer\index\index.css \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer\index\index.js \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\views\customer\index\index.xml \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\internal\prepareExtend.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\metadata\treeNodeStream.dat \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\metadata\treeStringsStream.dat \

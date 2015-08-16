@@ -1,0 +1,4 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded">
+	<Label text="{{ 'Welcome ' + UserDetails.userName }}"></Label>
+</Page>
+	
