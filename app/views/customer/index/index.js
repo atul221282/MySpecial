@@ -1,13 +1,22 @@
 var IndexViewModel = require("./index-view-model");
-
 var indexVM = new IndexViewModel();
 
 //Page load event
-exports.pageLoaded = pageLoaded;
-//When user click sign in button
+module.exports = {
+	navigatedTo: navigatedTo
+	, GetUserDetails: GetUserDetails,
+	UserDetails: {}
+}
 
-function pageLoaded(args) {
-	debugger;
+
+function navigatedTo(args) {
 	var page = args.object;
-    page.bindingContext = indexVM;
+	var context = page.navigationContext;
+	page.bindingContext = context;
+	UserDetails = context.UserDetails;
+}
+
+
+function GetUserDetails() {
+	indexVM.GetUserDetails(UserDetails);
 }

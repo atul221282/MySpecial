@@ -7,19 +7,27 @@ var http = require("http");
 
 
 function customerIndexViewModel(info) {
-	
+	info = info || {};
 	// You can add properties to observables on creation
-	var viewModel = new observable.Observable();
-	
+	var viewModel = new observable.Observable({
+		UserDetails: info
+	});
+
 	viewModel.UserDetails = {};
 	viewModel.SetUser = SetUser;
-	
+	viewModel.GetUserDetails = GetUserDetails;
 	return viewModel;
-	
-	function SetUser(userDetails){
+
+	function SetUser(userDetails) {
 		viewModel.UserDetails = userDetails;
+		viewModel.set("UserDetails", userDetails);
 	}
-	
+	function GetUserDetails(value) {
+		debugger;
+		viewModel.set("UserDetails",value);
+		alert(JSON.stringify(viewModel.get("UserDetails")));
+	}
+
 }
 
 module.exports = customerIndexViewModel;

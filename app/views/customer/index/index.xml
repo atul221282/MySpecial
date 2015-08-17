@@ -1,4 +1,5 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded">
+<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="navigatedTo">
 	<Label text="{{ 'Welcome ' + UserDetails.userName }}"></Label>
+	<Button text="WHo am I?" tap="GetUserDetails" />
 </Page>
 	

@@ -4,7 +4,6 @@ var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 var IndexViewModel = require("../../../views/customer/index/index-view-model");
-
 var indexViewModel = new IndexViewModel();
 
 function loginViewModel(info) {
@@ -34,24 +33,28 @@ function loginViewModel(info) {
 				
 				mySpecialAPI.GET("protected", void 0, function (inData) {
 					viewModel.set("isLoading",0);
-					//var result = inData.content.toJSON();
+					//Create user object for navigation
+					var result={"UserDetails":{
+						"userName":inData.content.toJSON()[0].Value	
+					}};
 					
-					var result={"userName":"Atul","roles":"Admin"};
-					indexViewModel.SetUser(result);
-					
+					indexViewModel.SetUser(result.UserDetails);
+					//TODO"Navigate user as per their roles"
+					//Create navigation object for customr index
 					var navigationEntry = {
 						moduleName: "./views/customer/index/index",
-						context: { info:result},
+						context: result,
 						animated: false
 					};
-					
+					//navigate to screen
 					topmost.navigate(navigationEntry);
-					
 				}, function (error) {
+					//we got an error
 					alert(error);
 					viewModel.set("isLoading",0);
 				}, void 0);
 			}, function (error) {
+				//we got an error
 				viewModel.set("isLoading",0);
 				alert(error);
 			}, void 0);
