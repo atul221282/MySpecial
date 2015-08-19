@@ -1,8 +1,11 @@
 {
-	"nativescript": {
-		"id": "org.nativescript.MySpecialApp",
-		"tns-android": {
-			"version": "1.2.1"
-		}
-	}
+  "nativescript": {
+    "id": "org.nativescript.MySpecialApp",
+    "tns-android": {
+      "version": "1.2.1"
+    }
+  },
+  "dependencies": {
+    "querystring-stable-stringify": "^1.0.0"
+  }
 }

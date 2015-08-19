@@ -19,9 +19,17 @@ function customerIndexViewModel() {
 		viewModel.UserDetails = userDetails;
 		viewModel.set("UserDetails", userDetails);
 	}
+
 	function GetUserDetails(value) {
-		viewModel.set("UserDetails",value);
-		alert(JSON.stringify(viewModel.get("UserDetails")));
+		viewModel.set("UserDetails", value);
+		debugger;
+		mySpecialAPI.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").userName }
+			, function (inData) {
+				alert(JSON.stringify(inData));
+			}, function (error) {
+				alert(JSON.stringify(error));
+				alert("error");
+			}, void 0);
 	}
 
 }

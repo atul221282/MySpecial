@@ -6,12 +6,9 @@ var http = require("http");
 
 
 
-function customerIndexViewModel(info) {
-	info = info || {};
+function customerIndexViewModel() {
 	// You can add properties to observables on creation
-	var viewModel = new observable.Observable({
-		UserDetails: info
-	});
+	var viewModel = new observable.Observable();
 
 	viewModel.UserDetails = {};
 	viewModel.SetUser = SetUser;
@@ -22,10 +19,17 @@ function customerIndexViewModel(info) {
 		viewModel.UserDetails = userDetails;
 		viewModel.set("UserDetails", userDetails);
 	}
+
 	function GetUserDetails(value) {
+		viewModel.set("UserDetails", value);
 		debugger;
-		viewModel.set("UserDetails",value);
-		alert(JSON.stringify(viewModel.get("UserDetails")));
+		mySpecialAPI.GET("protected/GetUserByEmail",{ "emailAddress": viewModel.get("UserDetails").userName }
+			, function (inData) {
+				alert(JSON.stringify(inData));
+			}, function (error) {
+				alert(JSON.stringify(error));
+				alert("error");
+			}, void 0);
 	}
 
 }

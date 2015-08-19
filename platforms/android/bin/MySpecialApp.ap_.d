@@ -40,6 +40,7 @@ C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\LICENSE \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\location \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\package.json \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\platform \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\text \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\timer \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\trace \
@@ -108,6 +109,11 @@ C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\location\l
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\location\package.json \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\platform\package.json \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\platform\platform.js \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify\index.js \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify\LICENCE \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify\package.json \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify\README.md \
+C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\querystring-stable-stringify\test.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\text\formatted-string-common.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\text\formatted-string.js \
 C:\MySpecialApp\MySpecialApp\platforms\android\assets\app\tns_modules\text\package.json \

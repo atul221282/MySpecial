@@ -37,14 +37,14 @@ function loginViewModel(info) {
 					var result={"UserDetails":{
 						"userName":inData.content.toJSON()[0].Value	
 					}};
-					
+					alert(JSON.stringify(inData.content.toJSON()[0].Value));
 					indexViewModel.SetUser(result.UserDetails);
 					//TODO"Navigate user as per their roles"
 					//Create navigation object for customr index
 					var navigationEntry = {
 						moduleName: "./views/customer/index/index",
 						context: result,
-						animated: false
+						animated: true
 					};
 					//navigate to screen
 					topmost.navigate(navigationEntry);

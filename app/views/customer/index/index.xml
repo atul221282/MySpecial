@@ -1,5 +1,6 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="navigatedTo">
-	<Label text="{{ 'Welcome ' + UserDetails.userName }}"></Label>
-	<Button text="WHo am I?" tap="GetUserDetails" />
+	<StackLayout>
+		<Label text="{{ 'Welcome ' + UserDetails.userName }}"></Label>
+		<Button text="WHo am I?" tap="GetUserDetails" />
+	</StackLayout>
 </Page>
-	
