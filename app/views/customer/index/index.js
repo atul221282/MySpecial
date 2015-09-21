@@ -19,7 +19,6 @@ function navigatedTo(args) {
 
 /*
 * Get the details from local variable
-* 
 */
 function GetUserDetails() {
 	indexVM.GetUserDetails(UserDetails);
