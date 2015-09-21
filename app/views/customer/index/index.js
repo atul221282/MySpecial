@@ -14,6 +14,7 @@ function navigatedTo(args) {
 	var context = page.navigationContext;
 	page.bindingContext = context;
 	UserDetails = context.UserDetails;
+	indexVM.SetUser(context.UserDetails);
 }
 
 

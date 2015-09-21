@@ -1,10 +1,10 @@
+
 var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
 var config = require("../../../shared/common/config");
 var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
-var IndexViewModel = require("../../../views/customer/index/index-view-model");
-var indexViewModel = new IndexViewModel();
+
 
 function loginViewModel(info) {
 	info = info || {};
@@ -25,20 +25,26 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		viewModel.set("isLoading",50);
-		mySpecialAPI.Login('Audience/SetClient', { 
+		mySpecialAPI.Login('account/LogIn', { 
 					"UserName": viewModel.get("email"),
 					"Password": viewModel.get("password") }, function (data) {
-						
-				mySpecialAPI.SetAuthToken(data.content.toJSON().access_token);
+				var response=data.content.toJSON();
+				var tokenData = response.tokenResponse;
+				var userData = response.userInfo;
 				
-				mySpecialAPI.GET("protected", void 0, function (inData) {
+				mySpecialAPI.SetAuthToken(tokenData.access_token);
+				
 					viewModel.set("isLoading",0);
 					//Create user object for navigation
 					var result={"UserDetails":{
-						"userName":inData.content.toJSON()[0].Value	
+						Name: userData.Name,
+						family_name: userData.family_name,
+						given_name: userData.given_name,
+						permissions: userData.permissions,
+						role: userData.role,
+						user_name:userData.given_name + " " + userData.family_name
 					}};
-					alert(JSON.stringify(inData.content.toJSON()[0].Value));
-					indexViewModel.SetUser(result.UserDetails);
+					
 					//TODO"Navigate user as per their roles"
 					//Create navigation object for customr index
 					var navigationEntry = {
@@ -48,11 +54,6 @@ function loginViewModel(info) {
 					};
 					//navigate to screen
 					topmost.navigate(navigationEntry);
-				}, function (error) {
-					//we got an error
-					alert(error);
-					viewModel.set("isLoading",0);
-				}, void 0);
 			}, function (error) {
 				//we got an error
 				viewModel.set("isLoading",0);

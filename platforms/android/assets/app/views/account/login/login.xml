@@ -1,9 +1,0 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded">
-  <StackLayout>
-    <ActivityIndicator busy="{{ isLoading == 0 ? false:true }}" 
-      width="{{ isLoading }}" height="{{ isLoading }}" />
-    <TextField hint="Email Address" keyboardType="email" id="tfEmailAddress" text="{{ email }}" />
-    <TextField hint="Password" secure="true" id="tfPassword" text="{{ password }}" />
-    <Button text="Sign In" tap="{{ Login }}" />
-  </StackLayout>
-</Page>

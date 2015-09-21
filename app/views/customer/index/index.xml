@@ -1,6 +1,7 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="navigatedTo">
 	<StackLayout>
-		<Label text="{{ 'Welcome ' + UserDetails.userName }}"></Label>
+		<Label text="{{ 'Welcome ' + UserDetails.user_name + ' and your subscription level is ' + UserDetails.role  }}"
+		textWrap="true"></Label> 
 		<Button text="WHo am I?" tap="GetUserDetails" />
 	</StackLayout>
 </Page>
