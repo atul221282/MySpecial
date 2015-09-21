@@ -5,6 +5,8 @@ var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 
+module.exports = loginViewModel;
+
 
 function loginViewModel(info) {
 	info = info || {};
@@ -18,52 +20,57 @@ function loginViewModel(info) {
 	
 	viewModel.Login = Login;
 	
-
 	return viewModel;
 	
-	
+	/*
+	* @Description Event get executed when user hit login button
+	*/
 	function Login(){
-		var topmost = frameModule.topmost();
 		viewModel.set("isLoading",50);
 		mySpecialAPI.Login('account/LogIn', { 
 					"UserName": viewModel.get("email"),
 					"Password": viewModel.get("password") }, function (data) {
 				var response=data.content.toJSON();
-				var tokenData = response.tokenResponse;
-				var userData = response.userInfo;
-				
-				mySpecialAPI.SetAuthToken(tokenData.access_token);
-				
-					viewModel.set("isLoading",0);
-					//Create user object for navigation
-					var result={"UserDetails":{
-						Name: userData.Name,
-						family_name: userData.family_name,
-						given_name: userData.given_name,
-						permissions: userData.permissions,
-						role: userData.role,
-						user_name:userData.given_name + " " + userData.family_name
-					}};
-					
-					//TODO"Navigate user as per their roles"
-					//Create navigation object for customr index
-					var navigationEntry = {
-						moduleName: "./views/customer/index/index",
-						context: result,
-						animated: true
-					};
-					//navigate to screen
-					topmost.navigate(navigationEntry);
+				mySpecialAPI.SetAuthToken(response.tokenResponse);
+				viewModel.set("isLoading",0);
+				Navigate(response.userInfo);
 			}, function (error) {
 				//we got an error
 				viewModel.set("isLoading",0);
 				alert(error);
 			}, void 0);
-    
+	}
+	
+	function Navigate(userData){
+		var topmost = frameModule.topmost();
+		//TODO"Navigate user as per their roles"
+		//Create navigation object for customr index
+		var navigationEntry = {
+			moduleName: "./views/customer/index/index",
+			ontext: PopulateUserFromServiceResponse(userData),
+			animated: true
+		};
+		//navigate to screen
+		topmost.navigate(navigationEntry);
+	}
+	
+	/*
+	* @Description Private function to populate user Data from ajax response 
+	*/
+	function PopulateUserFromServiceResponse(userData){
+		//Create user object for navigation
+		var result={"UserDetails":{
+			Name: userData.Name,
+			family_name: userData.family_name,
+			given_name: userData.given_name,
+			permissions: userData.permissions,
+			role: userData.role,
+			user_name:userData.given_name + " " + userData.family_name
+		}};
+		return result;
 	}
 }
 
-module.exports = loginViewModel;
 
 
 
