@@ -37,7 +37,7 @@ function loginViewModel(info) {
 				
 				mySpecialAPI.SetAuthToken(tokenData.access_token);
 				viewModel.set("isLoading",0);
-				Navigate(topmost, userData);
+				Navigate(topmost, PopulateUserFromServiceResponse(userData));
 			}, function (error) {
 				//we got an error
 				viewModel.set("isLoading",0);
@@ -51,7 +51,7 @@ function loginViewModel(info) {
 	function Navigate(frame,userData){
 		var navigationEntry = {
 			moduleName: "./views/customer/index/index",
-			context: PopulateUserFromServiceResponse(userData),
+			context: userData,
 			animated: true
 		};
 		//navigate to screen

@@ -1,13 +1,16 @@
 
 var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
 var config = require("../../../shared/common/config");
+var appConstants = require("../../../shared/common/constants");
 var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 
 module.exports = loginViewModel;
 
-
+/*
+* @Description View model for login screen
+*/
 function loginViewModel(info) {
 	info = info || {};
 
@@ -37,7 +40,7 @@ function loginViewModel(info) {
 				
 				mySpecialAPI.SetAuthToken(tokenData.access_token);
 				viewModel.set("isLoading",0);
-				Navigate(topmost, userData);
+				Navigate(topmost, PopulateUserFromServiceResponse(userData));
 			}, function (error) {
 				//we got an error
 				viewModel.set("isLoading",0);
@@ -45,13 +48,14 @@ function loginViewModel(info) {
 			}, void 0);
     
 	}
+	
 	/*
-	* @description Navgate user to details screen
+	* @Description Navgate user to details screen
 	*/
 	function Navigate(frame,userData){
 		var navigationEntry = {
-			moduleName: "./views/customer/index/index",
-			context: PopulateUserFromServiceResponse(userData),
+			moduleName: appConstants.customerHome,
+			context: userData,
 			animated: true
 		};
 		//navigate to screen
@@ -73,6 +77,7 @@ function loginViewModel(info) {
 		}};
 		return result;
 	}
+	
 }
 
 
