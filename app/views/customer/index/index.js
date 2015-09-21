@@ -8,7 +8,6 @@ module.exports = {
 	UserDetails: {}
 }
 
-
 /*
 * @function Get fired when user come to this screen from navigation
 */
