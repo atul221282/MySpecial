@@ -9,6 +9,9 @@ module.exports = {
 }
 
 
+/*
+* @function Get fired when user come to this screen from navigation
+*/
 function navigatedTo(args) {
 	var page = args.object;
 	var context = page.navigationContext;
@@ -16,9 +19,6 @@ function navigatedTo(args) {
 	UserDetails = context.UserDetails;
 	indexVM.SetUser(context.UserDetails);
 }
-
-
-
 
 /*
 * Get the details from local variable
