@@ -26,32 +26,36 @@ function loginViewModel(info) {
 	* @Description Event get executed when user hit login button
 	*/
 	function Login(){
+		var topmost = frameModule.topmost();
 		viewModel.set("isLoading",50);
 		mySpecialAPI.Login('account/LogIn', { 
 					"UserName": viewModel.get("email"),
 					"Password": viewModel.get("password") }, function (data) {
 				var response=data.content.toJSON();
-				mySpecialAPI.SetAuthToken(response.tokenResponse);
+				var tokenData = response.tokenResponse;
+				var userData = response.userInfo;
+				
+				mySpecialAPI.SetAuthToken(tokenData.access_token);
 				viewModel.set("isLoading",0);
-				Navigate(response.userInfo);
+				Navigate(topmost, userData);
 			}, function (error) {
 				//we got an error
 				viewModel.set("isLoading",0);
 				alert(error);
 			}, void 0);
+    
 	}
-	
-	function Navigate(userData){
-		var topmost = frameModule.topmost();
-		//TODO"Navigate user as per their roles"
-		//Create navigation object for customr index
+	/*
+	* @description Navgate user to details screen
+	*/
+	function Navigate(frame,userData){
 		var navigationEntry = {
 			moduleName: "./views/customer/index/index",
-			ontext: PopulateUserFromServiceResponse(userData),
+			context: PopulateUserFromServiceResponse(userData),
 			animated: true
 		};
 		//navigate to screen
-		topmost.navigate(navigationEntry);
+		frame.navigate(navigationEntry);
 	}
 	
 	/*
