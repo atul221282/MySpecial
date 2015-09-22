@@ -2,6 +2,7 @@ var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
 var config = require("../../../shared/common/config");
 var observable = require("data/observable");
 
+module.exports = customerIndexViewModel;
 
 function customerIndexViewModel() {
 	// You can add properties to observables on creation
@@ -38,7 +39,7 @@ function customerIndexViewModel() {
 
 }
 
-module.exports = customerIndexViewModel;
+
 
 
 

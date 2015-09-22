@@ -1,15 +1,11 @@
 var observable = require("data/observable");
 var applicationSettings = require("application-settings");
 
-module.exports = AuthenticationVm;
+module.exports = {
+	SetUser:SetUser,
+	GetUser:GetUser
+};
 
-
-function AuthenticationVm(){
-	var viewModel = new observable.Observable();
-	viewModel.SetUser = SetUser;
-	viewModel.GetUser = GetUser;
-	return viewModel
-}
 /*
 * @Description Set user data in application setting
 */
@@ -29,6 +25,9 @@ function SetUser(userData){
 
 }
 
+/*
+* @Description Get user data application setting
+*/
 function GetUser(){
 	if(applicationSettings.hasKey("User")===true)
 		return JSON.parse(applicationSettings.getString("User"));

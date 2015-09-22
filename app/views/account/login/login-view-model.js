@@ -72,10 +72,8 @@ function Navigate(frame,userData){
 * @Description Private function to populate user Data from ajax response 
 */
 function PopulateUserFromServiceResponse(userData){
-	var authenticationVm = new AuthenticationViewModel();
-	debugger;
-	authenticationVm.SetUser(userData);
-	var data = authenticationVm.GetUser();
+	AuthenticationViewModel.SetUser(userData);
+	var data = AuthenticationViewModel.GetUser();
 	return data;
 }
 
