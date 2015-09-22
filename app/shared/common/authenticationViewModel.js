@@ -1,13 +1,19 @@
+var observable = require("data/observable");
 var applicationSettings = require("application-settings");
 
-function AuthenticationVm(){
-	
-}
+module.exports = AuthenticationVm;
 
+
+function AuthenticationVm(){
+	var viewModel = new observable.Observable();
+	viewModel.SetUser = SetUser;
+	viewModel.GetUser = GetUser;
+	return viewModel
+}
 /*
 * @Description Set user data in application setting
 */
-AuthenticationVm.prototype.SetUser = function(userData){
+function SetUser(userData){
 	if(userData){
 		
 		var result={"UserDetails":{
@@ -23,7 +29,7 @@ AuthenticationVm.prototype.SetUser = function(userData){
 
 }
 
-AuthenticationVm.prototype.GetUser = function(){
+function GetUser(){
 	if(applicationSettings.hasKey("User")===true)
 		return JSON.parse(applicationSettings.getString("User"));
 	else

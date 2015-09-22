@@ -5,7 +5,7 @@ var appConstants = require("../../../shared/common/constants");
 var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
-var authenticationVM = require("../../../shared/common/constants");
+var AuthenticationViewModel = require("../../../shared/common/authenticationViewModel");
 
 module.exports = loginViewModel;
 
@@ -13,6 +13,9 @@ module.exports = loginViewModel;
 * @Description View model for login screen
 */
 function loginViewModel(info) {
+	
+	
+	
 	info = info || {};
 
 	// You can add properties to observables on creation
@@ -69,9 +72,10 @@ function Navigate(frame,userData){
 * @Description Private function to populate user Data from ajax response 
 */
 function PopulateUserFromServiceResponse(userData){
+	var authenticationVm = new AuthenticationViewModel();
 	debugger;
-	authenticationVM.SetUser(userData);
-	var data = authenticationVM.GetUser();
+	authenticationVm.SetUser(userData);
+	var data = authenticationVm.GetUser();
 	return data;
 }
 
