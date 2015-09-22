@@ -1,9 +1,11 @@
 var observable = require("data/observable");
 var applicationSettings = require("application-settings");
+var moment = require("moment");
 
 module.exports = {
 	SetUser:SetUser,
-	GetUser:GetUser
+	GetUser:GetUser,
+	SetToken:SetToken
 };
 
 /*
@@ -33,4 +35,10 @@ function GetUser(){
 		return JSON.parse(applicationSettings.getString("User"));
 	else
 		return void 0;
+}
+
+function SetToken(tokenData){
+	debugger;
+	var ff = moment;
+	applicationSettings.setString("token_data", JSON.stringify(tokenData));
 }

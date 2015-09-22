@@ -40,7 +40,7 @@ function loginViewModel(info) {
 				var response=data.content.toJSON();
 				var tokenData = response.tokenResponse;
 				var userData = response.userInfo;
-				
+				SetAuthToken(tokenData);
 				APIService.SetAuthToken(tokenData.access_token);
 				viewModel.set("isLoading",0);
 				Navigate(topmost, PopulateUserFromServiceResponse(userData));
@@ -75,6 +75,15 @@ function PopulateUserFromServiceResponse(userData){
 	var data = AuthenticationService.GetUser();
 	return data;
 }
+
+/*
+* @Description Private function to populate user Data from ajax response 
+*/
+function SetAuthToken(tokenData){
+	AuthenticationService.SetToken(tokenData);
+}
+
+
 
 
 
