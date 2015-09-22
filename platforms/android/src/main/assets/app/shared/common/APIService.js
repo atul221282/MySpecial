@@ -1,5 +1,5 @@
 var http = require("http");
-var config = require("./config");
+var ConfigService = require("./ConfigService");
 var stringify = require('querystring-stable-stringify');
 var platform = require("platform");
 
@@ -23,7 +23,7 @@ exports.UnGET = function (endpoint, content, successCallBack, errorCallBack, hea
 exports.Login = function (endpoint, content, successCallBack, errorCallBack, headers) {
 	
 	return http.request({
-		url: config.apiUrl + endpoint,
+		url: ConfigService.apiUrl + endpoint,
 		method: "POST",
 		content: "UserName="+content.UserName+"&Password="+content.Password,
 		headers: {
@@ -35,7 +35,7 @@ exports.Login = function (endpoint, content, successCallBack, errorCallBack, hea
 };
 
 exports.SetAuthToken = function (authToken) {
-	config.authToken = "Bearer " + authToken;
+	ConfigService.authToken = "Bearer " + authToken;
 };
 
 exports.headers = {
@@ -52,12 +52,12 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 		if (!content) content = {};
 		content.noCache = new Date().getTime();
 		return http.request({
-			url: config.apiUrl + endpoint + "?" + stringify(content),
+			url: ConfigService.apiUrl + endpoint + "?" + stringify(content),
 			method: "GET",
 			headers: !headers ? {
 				"Content-Type": "application/json",
 				"X-ClientType": "native_client",
-				"Authorization": config.authToken,
+				"Authorization": ConfigService.authToken,
 				"X-DeviceId":platform.device.uuid
 			} : headers
 		}).then(successCallBack).catch(errorCallBack);
@@ -65,13 +65,13 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 	//else it is post
 	//and content needs to be stringify
 	return http.request({
-		url: config.apiUrl + endpoint,
+		url: ConfigService.apiUrl + endpoint,
 		method: method,
 		content: JSON.stringify(content),
 		headers: !headers ? {
 			"Content-Type": "application/json",
 			"X-ClientType": "native_client",
-			"Authorization": config.authToken
+			"Authorization": ConfigService.authToken
 		} : headers
 	}).then(successCallBack).catch(errorCallBack);
 

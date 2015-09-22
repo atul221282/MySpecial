@@ -25,6 +25,9 @@ function SetUser(userData){
 
 }
 
+/*
+* @Description Get user data application setting
+*/
 function GetUser(){
 	if(applicationSettings.hasKey("User")===true)
 		return JSON.parse(applicationSettings.getString("User"));

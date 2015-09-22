@@ -1,11 +1,10 @@
 
-var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
-var config = require("../../../shared/common/config");
-var appConstants = require("../../../shared/common/constants");
+var APIService = require("../../../shared/common/APIService");
+var ConstantsService = require("../../../shared/common/ConstantsService");
 var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
-var AuthenticationViewModel = require("../../../shared/common/authenticationViewModel");
+var AuthenticationService = require("../../../shared/common/AuthenticationService");
 
 module.exports = loginViewModel;
 
@@ -35,14 +34,14 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		viewModel.set("isLoading",50);
-		mySpecialAPI.Login('account/LogIn', { 
+		APIService.Login('account/LogIn', { 
 					"UserName": viewModel.get("email"),
 					"Password": viewModel.get("password") }, function (data) {
 				var response=data.content.toJSON();
 				var tokenData = response.tokenResponse;
 				var userData = response.userInfo;
 				
-				mySpecialAPI.SetAuthToken(tokenData.access_token);
+				APIService.SetAuthToken(tokenData.access_token);
 				viewModel.set("isLoading",0);
 				Navigate(topmost, PopulateUserFromServiceResponse(userData));
 			}, function (error) {
@@ -60,7 +59,7 @@ function loginViewModel(info) {
 */
 function Navigate(frame,userData){
 	var navigationEntry = {
-		moduleName: appConstants.customerHome,
+		moduleName: ConstantsService.customerHome,
 		context: userData,
 		animated: true
 	};
@@ -72,9 +71,8 @@ function Navigate(frame,userData){
 * @Description Private function to populate user Data from ajax response 
 */
 function PopulateUserFromServiceResponse(userData){
-	debugger;
-	AuthenticationViewModel.SetUser(userData);
-	var data = AuthenticationViewModel.GetUser();
+	AuthenticationService.SetUser(userData);
+	var data = AuthenticationService.GetUser();
 	return data;
 }
 

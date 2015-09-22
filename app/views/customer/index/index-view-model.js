@@ -1,6 +1,6 @@
-var mySpecialAPI = require("../../../shared/common/myspecialAPI-view-model");
-var config = require("../../../shared/common/config");
+var APIService = require("../../../shared/common/APIService");
 var observable = require("data/observable");
+var AuthenticationService = require("../../../shared/common/AuthenticationService");
 
 module.exports = customerIndexViewModel;
 
@@ -26,11 +26,10 @@ function customerIndexViewModel() {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		alert(JSON.stringify(viewModel.get("UserDetails")));
-		
-		mySpecialAPI.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
+		alert(JSON.stringify(AuthenticationService.GetUser()));
+		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
-				//alert(JSON.stringify(inData));
+				alert(JSON.stringify(inData));
 			}, function (error) {
 				if(error)
 					alert(JSON.stringify(error));
