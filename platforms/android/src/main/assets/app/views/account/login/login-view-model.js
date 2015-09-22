@@ -5,6 +5,7 @@ var appConstants = require("../../../shared/common/constants");
 var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
+var authenticationVM = require("../../../shared/common/constants");
 
 module.exports = loginViewModel;
 
@@ -52,33 +53,27 @@ function loginViewModel(info) {
 }
 
 /*
-	* @Description Navgate user to details screen
-	*/
-	function Navigate(frame,userData){
-		var navigationEntry = {
-			moduleName: appConstants.customerHome,
-			context: userData,
-			animated: true
-		};
-		//navigate to screen
-		frame.navigate(navigationEntry);
-	}
+* @Description Navgate user to details screen
+*/
+function Navigate(frame,userData){
+	var navigationEntry = {
+		moduleName: appConstants.customerHome,
+		context: userData,
+		animated: true
+	};
+	//navigate to screen
+	frame.navigate(navigationEntry);
+}
 	
-	/*
-	* @Description Private function to populate user Data from ajax response 
-	*/
-	function PopulateUserFromServiceResponse(userData){
-		//Create user object for navigation
-		var result={"UserDetails":{
-			Name: userData.Name,
-			family_name: userData.family_name,
-			given_name: userData.given_name,
-			permissions: userData.permissions,
-			role: userData.role,
-			user_name:userData.given_name + " " + userData.family_name
-		}};
-		return result;
-	}
+/*
+* @Description Private function to populate user Data from ajax response 
+*/
+function PopulateUserFromServiceResponse(userData){
+	debugger;
+	authenticationVM.SetUser(userData);
+	var data = authenticationVM.GetUser();
+	return data;
+}
 
 
 
