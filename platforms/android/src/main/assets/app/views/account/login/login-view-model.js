@@ -49,7 +49,9 @@ function loginViewModel(info) {
     
 	}
 	
-	/*
+}
+
+/*
 	* @Description Navgate user to details screen
 	*/
 	function Navigate(frame,userData){
@@ -77,8 +79,6 @@ function loginViewModel(info) {
 		}};
 		return result;
 	}
-	
-}
 
 
 
