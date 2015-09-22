@@ -26,7 +26,7 @@ function customerIndexViewModel() {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		alert(JSON.stringify(AuthenticationService.GetUser()));
+		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
 				alert(JSON.stringify(inData));

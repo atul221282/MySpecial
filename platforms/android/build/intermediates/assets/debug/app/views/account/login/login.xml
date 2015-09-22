@@ -5,5 +5,9 @@
     <TextField hint="Email Address" keyboardType="email" id="tfEmailAddress" text="{{ email }}" />
     <TextField hint="Password" secure="true" id="tfPassword" text="{{ password }}" />
     <Button text="Sign In" tap="{{ Login }}" />
+    <Label text="{{ 'Expires at ' +  TokenDate}}"
+		textWrap="true"></Label>
+    <Label text="{{ 'Date now ' +  CurrentDate}}"
+		textWrap="true"></Label>
   </StackLayout>
 </Page>

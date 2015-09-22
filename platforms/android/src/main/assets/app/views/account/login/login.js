@@ -9,9 +9,10 @@ var loginVM = new LoginViewModel({
 
 //Page load event
 exports.pageLoaded = pageLoaded;
-
+//When user click sign in button
 
 function pageLoaded(args) {
 	var page = args.object;
+	
     page.bindingContext = loginVM;
 }

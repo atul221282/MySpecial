@@ -12,9 +12,7 @@ module.exports = loginViewModel;
 * @Description View model for login screen
 */
 function loginViewModel(info) {
-	
-	
-	
+
 	info = info || {};
 
 	// You can add properties to observables on creation
@@ -33,22 +31,27 @@ function loginViewModel(info) {
 	*/
 	function Login(){
 		var topmost = frameModule.topmost();
-		viewModel.set("isLoading",50);
-		APIService.Login('account/LogIn', { 
-					"UserName": viewModel.get("email"),
-					"Password": viewModel.get("password") }, function (data) {
-				var response=data.content.toJSON();
-				var tokenData = response.tokenResponse;
-				var userData = response.userInfo;
-				SetAuthToken(tokenData);
-				APIService.SetAuthToken(tokenData.access_token);
-				viewModel.set("isLoading",0);
-				Navigate(topmost, PopulateUserFromServiceResponse(userData));
-			}, function (error) {
-				//we got an error
-				viewModel.set("isLoading",0);
-				alert(error);
-			}, void 0);
+		
+		if(AuthenticationService.GetToken() && AuthenticationService.HasTokenExpired()===false){
+			Navigate(topmost);
+		}
+		else{
+			viewModel.set("isLoading",50);
+			APIService.Login('account/LogIn', { 
+						"UserName": viewModel.get("email"),
+						"Password": viewModel.get("password") }, function (data) {
+					var response=data.content.toJSON();
+					SetAuthToken(response.tokenResponse);
+					PopulateUserFromServiceResponse(response.userInfo);
+					APIService.SetAuthToken(response.tokenResponse.access_token);
+					viewModel.set("isLoading",0);
+					Navigate(topmost);
+				}, function (error) {
+					//we got an error
+					viewModel.set("isLoading",0);
+					alert(error);
+				}, void 0);
+			}
     
 	}
 	
@@ -57,10 +60,10 @@ function loginViewModel(info) {
 /*
 * @Description Navgate user to details screen
 */
-function Navigate(frame,userData){
+function Navigate(frame){
 	var navigationEntry = {
 		moduleName: ConstantsService.customerHome,
-		context: userData,
+		context: AuthenticationService.GetUser(),
 		animated: true
 	};
 	//navigate to screen
@@ -72,8 +75,6 @@ function Navigate(frame,userData){
 */
 function PopulateUserFromServiceResponse(userData){
 	AuthenticationService.SetUser(userData);
-	var data = AuthenticationService.GetUser();
-	return data;
 }
 
 /*

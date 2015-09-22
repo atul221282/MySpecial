@@ -1,6 +1,7 @@
 var APIService = require("../../../shared/common/APIService");
 var observable = require("data/observable");
 var AuthenticationService = require("../../../shared/common/AuthenticationService");
+var moment = require("moment");
 
 module.exports = customerIndexViewModel;
 
@@ -11,6 +12,18 @@ function customerIndexViewModel() {
 	viewModel.UserDetails = {};
 	viewModel.SetUser = SetUser;
 	viewModel.GetUserDetails = GetUserDetails;
+	
+	var date = moment(AuthenticationService.GetToken().expires_at)
+	var now = moment();
+	if (now > date) {
+   		viewModel.Difference = "Expired token";
+	} else {
+		viewModel.Difference = "Valid token";
+	}
+	viewModel.TokenDate = moment(AuthenticationService.GetToken().expires_at).format();
+	viewModel.CurrentDate = moment.utc().format();
+	viewModel.IsTokenExpired= AuthenticationService.HasTokenExpired(); 
+	
 	return viewModel;
 	
 	/*
@@ -26,7 +39,8 @@ function customerIndexViewModel() {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		alert(JSON.stringify(AuthenticationService.GetUser()));
+		AuthenticationService.HasTokenExpired();
+		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
 				alert(JSON.stringify(inData));

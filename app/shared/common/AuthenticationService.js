@@ -3,9 +3,11 @@ var applicationSettings = require("application-settings");
 var moment = require("moment");
 
 module.exports = {
-	SetUser:SetUser,
-	GetUser:GetUser,
-	SetToken:SetToken
+	SetUser : SetUser,
+	GetUser : GetUser,
+	SetToken : SetToken,
+	GetToken : GetToken,
+	HasTokenExpired:HasTokenExpired
 };
 
 /*
@@ -37,8 +39,36 @@ function GetUser(){
 		return void 0;
 }
 
+/*
+* @fDescription Set token data in application setting
+*/
 function SetToken(tokenData){
-	debugger;
-	var ff = moment;
+	tokenData.expires_at=moment().add(tokenData.expires_in,"s");
 	applicationSettings.setString("token_data", JSON.stringify(tokenData));
+}
+
+/*
+* @fDescription Set token data in application setting
+*/
+function GetToken(){
+	//TODO :Also Check if it is not expired
+	if(applicationSettings.hasKey("token_data")===true)
+		return JSON.parse(applicationSettings.getString("token_data"));
+	else
+		return void 0;
+}
+
+function HasTokenExpired(){
+	if(applicationSettings.hasKey("token_data")===true){
+		var date = moment(GetToken().expires_at)
+		var now = moment();
+		if (now > date) {
+			alert("true");
+			return true;
+		} else {
+			alert("false");
+			return false;
+		}
+	}
+	throw Error("No token data");
 }
