@@ -1,4 +1,3 @@
-var observable = require("data/observable");
 var applicationSettings = require("application-settings");
 var moment = require("moment");
 
@@ -43,7 +42,7 @@ function GetUser(){
 * @fDescription Set token data in application setting
 */
 function SetToken(tokenData){
-	tokenData.expires_at=moment().add(tokenData.expires_in,"s");
+	tokenData.expires_at=moment().add(tokenData.expires_in+300,"s");
 	applicationSettings.setString("token_data", JSON.stringify(tokenData));
 }
 
@@ -58,16 +57,13 @@ function GetToken(){
 		return void 0;
 }
 
+/*
+* @Decription Return true if token has expired else false
+*/
 function HasTokenExpired(){
 	if(applicationSettings.hasKey("token_data")===true){
-		var date = moment(GetToken().expires_at)
-		var now = moment();
-		if (now > date) {
-			return true;
-		} else {
-			
-			return false;
-		}
+		//moment() is current date
+		return (moment() > moment(GetToken().expires_at));
 	}
 	throw Error("No token data");
 }

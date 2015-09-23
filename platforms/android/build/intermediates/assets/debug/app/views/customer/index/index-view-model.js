@@ -14,23 +14,14 @@ function customerIndexViewModel(info) {
 	viewModel.SetUser = SetUser;
 	viewModel.GetUserDetails = GetUserDetails;
 
-	var date = moment(AuthenticationService.GetToken().expires_at)
-	var now = moment();
-	if (now > date) {
-		viewModel.Difference = "Expired token";
-	} else {
-		viewModel.Difference = "Valid token";
-	}
-	viewModel.TokenDate = moment(AuthenticationService.GetToken().expires_at).format();
-	viewModel.CurrentDate = moment.utc().format();
-	viewModel.IsTokenExpired = AuthenticationService.HasTokenExpired();
-	viewModel.AccessToken = AuthenticationService.GetToken().access_token;
+	viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
+	viewModel.set("AccessToken", AuthenticationService.GetToken().access_token);
 
 	return viewModel;
 	
 	/*
 	* @Description Temporarily stored variable
-	* @note - TODO Save in application setting
+	* @note - TODO Save in application setting - Ben
 	*/
 	function SetUser(userDetails) {
 		viewModel.set("UserDetails", userDetails);
@@ -41,13 +32,11 @@ function customerIndexViewModel(info) {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		debugger;
-		alert(JSON.stringify(viewModel.IsTokenExpired));
-		viewModel.IsTokenExpired = AuthenticationService.HasTokenExpired();
-		alert(JSON.stringify(viewModel.IsTokenExpired));
+		viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
 		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
+				alert(JSON.stringify(inData));
 			}, function (error) {
 				if (error)
 					alert(JSON.stringify(error));

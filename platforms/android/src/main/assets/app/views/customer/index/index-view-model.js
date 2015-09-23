@@ -32,7 +32,6 @@ function customerIndexViewModel(info) {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		debugger;
 		viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
 		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }

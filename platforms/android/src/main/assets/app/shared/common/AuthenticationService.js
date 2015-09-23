@@ -1,4 +1,3 @@
-var observable = require("data/observable");
 var applicationSettings = require("application-settings");
 var moment = require("moment");
 
@@ -58,6 +57,9 @@ function GetToken(){
 		return void 0;
 }
 
+/*
+* @Decription Return true if token has expired else false
+*/
 function HasTokenExpired(){
 	if(applicationSettings.hasKey("token_data")===true){
 		//moment() is current date

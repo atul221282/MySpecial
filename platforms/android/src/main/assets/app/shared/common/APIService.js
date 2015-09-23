@@ -10,7 +10,14 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
+	if (AuthenticationService.HasTokenExpired() === true)
+		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
+	else {
+		RefreshToken(function (response) {
+			debugger;
+			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
+		});
+	}
 };
 //Unauthorised POST Call to an API
 exports.UnPost = function (endpoint, content, successCallBack, errorCallBack, headers) {
@@ -22,44 +29,43 @@ exports.UnGET = function (endpoint, content, successCallBack, errorCallBack, hea
 };
 //Login Call to API
 exports.Login = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	
+
 	return http.request({
 		url: ConfigService.apiUrl + endpoint,
 		method: "POST",
-		content: "UserName="+content.UserName+"&Password="+content.Password,
+		content: "UserName=" + content.UserName + "&Password=" + content.Password,
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			"X-ClientType": "native_client",
-			"X-DeviceId":platform.device.uuid
+			"X-DeviceId": platform.device.uuid
 		}
 	}).then(successCallBack).catch(errorCallBack);
 };
 
-
-
-exports.headers = {
-	"Content-Type": "application/json",
-	"X-ClientType": "native_client",
-	"X-DeviceId":platform.device.uuid,
-	"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token,
-}
 //Private method to handle ajax call
 function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, headers) {
+
+	if (!headers) {
+		headers = {
+			"Content-Type": "application/json",
+			"X-ClientType": "native_client",
+			"X-DeviceId": platform.device.uuid,
+		}
+	}
+
+	var tokenData = AuthenticationService.GetToken();
+	if (tokenData) {
+		headers.Authorization = "Bearer " + tokenData.access_token;
+	}
 	//If get we dont need content property but we need content appended
 	//to url as query string
 	if (method === "GET") {
-		
 		if (!content) content = {};
 		content.noCache = new Date().getTime();
 		return http.request({
 			url: ConfigService.apiUrl + endpoint + "?" + stringify(content),
 			method: "GET",
-			headers: !headers ? {
-				"Content-Type": "application/json",
-				"X-ClientType": "native_client",
-				"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token,
-				"X-DeviceId":platform.device.uuid
-			} : headers
+			headers: headers
 		}).then(successCallBack).catch(errorCallBack);
 	}
 	//else it is post
@@ -68,12 +74,24 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 		url: ConfigService.apiUrl + endpoint,
 		method: method,
 		content: JSON.stringify(content),
-		headers: !headers ? {
-			"Content-Type": "application/json",
-			"X-ClientType": "native_client",
-			"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token
-		} : headers
+		headers: headers
 	}).then(successCallBack).catch(errorCallBack);
 
 }
 
+function RefreshToken(successCallBack) {
+	debugger;
+	var token = AuthenticationService.GetToken().refresh_token;
+	var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token;
+    return http.request({
+		url: ConfigService.apiUrl + "account/RefreshToken",
+		method: "POST",
+		content: data,
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	}).then(successCallBack).catch(function (error) {
+		debugger;
+		var pp = error;
+	});
+}
