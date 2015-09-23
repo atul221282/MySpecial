@@ -21,7 +21,7 @@ function customerIndexViewModel(info) {
 	
 	/*
 	* @Description Temporarily stored variable
-	* @note - TODO Save in application setting
+	* @note - TODO Save in application setting - Ben
 	*/
 	function SetUser(userDetails) {
 		viewModel.set("UserDetails", userDetails);
