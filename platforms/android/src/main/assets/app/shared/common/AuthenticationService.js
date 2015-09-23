@@ -60,9 +60,8 @@ function GetToken(){
 
 function HasTokenExpired(){
 	if(applicationSettings.hasKey("token_data")===true){
-		var date = moment(GetToken().expires_at)
-		var now = moment();
-		return (now > date);
+		//moment() is current date
+		return (moment() > moment(GetToken().expires_at));
 	}
 	throw Error("No token data");
 }
