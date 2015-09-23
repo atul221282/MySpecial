@@ -5,25 +5,18 @@ var moment = require("moment");
 
 module.exports = customerIndexViewModel;
 
-function customerIndexViewModel() {
+function customerIndexViewModel(info) {
+	info = info || {};
 	// You can add properties to observables on creation
-	var viewModel = new observable.Observable();
-
-	viewModel.UserDetails = {};
+	var viewModel = new observable.Observable({
+		UserDetails: info
+	});
 	viewModel.SetUser = SetUser;
 	viewModel.GetUserDetails = GetUserDetails;
-	
-	var date = moment(AuthenticationService.GetToken().expires_at)
-	var now = moment();
-	if (now > date) {
-   		viewModel.Difference = "Expired token";
-	} else {
-		viewModel.Difference = "Valid token";
-	}
-	viewModel.TokenDate = moment(AuthenticationService.GetToken().expires_at).format();
-	viewModel.CurrentDate = moment.utc().format();
-	viewModel.IsTokenExpired= AuthenticationService.HasTokenExpired(); 
-	
+
+	viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
+	viewModel.set("AccessToken", AuthenticationService.GetToken().access_token);
+
 	return viewModel;
 	
 	/*
@@ -39,13 +32,13 @@ function customerIndexViewModel() {
 	* @note - TODO Get in application setting
 	*/
 	function GetUserDetails(value) {
-		AuthenticationService.HasTokenExpired();
+		debugger;
+		viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
 		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
-				alert(JSON.stringify(inData));
 			}, function (error) {
-				if(error)
+				if (error)
 					alert(JSON.stringify(error));
 			}, void 0);
 	}

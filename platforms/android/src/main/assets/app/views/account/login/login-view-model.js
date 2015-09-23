@@ -42,12 +42,11 @@ function loginViewModel(info) {
 						"Password": viewModel.get("password") }, function (data) {
 					var response=data.content.toJSON();
 					SetAuthToken(response.tokenResponse);
-					PopulateUserFromServiceResponse(response.userInfo);
+					SetUser(response.userInfo);
 					APIService.SetAuthToken(response.tokenResponse.access_token);
 					viewModel.set("isLoading",0);
 					Navigate(topmost);
 				}, function (error) {
-					//we got an error
 					viewModel.set("isLoading",0);
 					alert(error);
 				}, void 0);
@@ -73,7 +72,7 @@ function Navigate(frame){
 /*
 * @Description Private function to populate user Data from ajax response 
 */
-function PopulateUserFromServiceResponse(userData){
+function SetUser(userData){
 	AuthenticationService.SetUser(userData);
 }
 

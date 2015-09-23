@@ -5,7 +5,6 @@ var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 var AuthenticationService = require("../../../shared/common/AuthenticationService");
-var moment = require("moment");
 
 module.exports = loginViewModel;
 
@@ -22,9 +21,7 @@ function loginViewModel(info) {
 		password: info.password || "",
 		isLoading:info.isLoading||0
 	});
-	viewModel.TokenDate = moment(AuthenticationService.GetToken().expires_at).format();
-	viewModel.CurrentDate = moment.utc().format();
-	viewModel.IsTokenExpired= AuthenticationService.HasTokenExpired(); 
+	
 	viewModel.Login = Login;
 	
 	return viewModel;
@@ -35,10 +32,8 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		
-		if(AuthenticationService.GetToken() !== void 0 && 
-			AuthenticationService.HasTokenExpired()===false){
-				alert("Logged In");
-				Navigate(topmost);
+		if(AuthenticationService.GetToken() && AuthenticationService.HasTokenExpired()===false){
+			Navigate(topmost);
 		}
 		else{
 			viewModel.set("isLoading",50);
@@ -47,12 +42,11 @@ function loginViewModel(info) {
 						"Password": viewModel.get("password") }, function (data) {
 					var response=data.content.toJSON();
 					SetAuthToken(response.tokenResponse);
-					PopulateUserFromServiceResponse(response.userInfo);
+					SetUser(response.userInfo);
 					APIService.SetAuthToken(response.tokenResponse.access_token);
 					viewModel.set("isLoading",0);
 					Navigate(topmost);
 				}, function (error) {
-					//we got an error
 					viewModel.set("isLoading",0);
 					alert(error);
 				}, void 0);
@@ -78,7 +72,7 @@ function Navigate(frame){
 /*
 * @Description Private function to populate user Data from ajax response 
 */
-function PopulateUserFromServiceResponse(userData){
+function SetUser(userData){
 	AuthenticationService.SetUser(userData);
 }
 

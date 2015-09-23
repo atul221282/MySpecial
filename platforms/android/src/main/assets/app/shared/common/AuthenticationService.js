@@ -63,10 +63,9 @@ function HasTokenExpired(){
 		var date = moment(GetToken().expires_at)
 		var now = moment();
 		if (now > date) {
-			alert("true");
 			return true;
 		} else {
-			alert("false");
+			
 			return false;
 		}
 	}
