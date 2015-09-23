@@ -2,6 +2,7 @@ var http = require("http");
 var ConfigService = require("./ConfigService");
 var stringify = require('querystring-stable-stringify');
 var platform = require("platform");
+var AuthenticationService = require("./AuthenticationService");
 
 // POST Call to an API
 exports.Post = function (endpoint, content, successCallBack, errorCallBack, headers) {
@@ -34,14 +35,13 @@ exports.Login = function (endpoint, content, successCallBack, errorCallBack, hea
 	}).then(successCallBack).catch(errorCallBack);
 };
 
-exports.SetAuthToken = function (authToken) {
-	ConfigService.authToken = "Bearer " + authToken;
-};
+
 
 exports.headers = {
 	"Content-Type": "application/json",
 	"X-ClientType": "native_client",
-	"X-DeviceId":platform.device.uuid
+	"X-DeviceId":platform.device.uuid,
+	"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token,
 }
 //Private method to handle ajax call
 function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, headers) {
@@ -57,7 +57,7 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 			headers: !headers ? {
 				"Content-Type": "application/json",
 				"X-ClientType": "native_client",
-				"Authorization": ConfigService.authToken,
+				"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token,
 				"X-DeviceId":platform.device.uuid
 			} : headers
 		}).then(successCallBack).catch(errorCallBack);
@@ -71,7 +71,7 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 		headers: !headers ? {
 			"Content-Type": "application/json",
 			"X-ClientType": "native_client",
-			"Authorization": ConfigService.authToken
+			"Authorization": "Bearer "+ AuthenticationService.GetToken().access_token
 		} : headers
 	}).then(successCallBack).catch(errorCallBack);
 

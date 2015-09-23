@@ -43,7 +43,6 @@ function loginViewModel(info) {
 					var response=data.content.toJSON();
 					SetAuthToken(response.tokenResponse);
 					SetUser(response.userInfo);
-					APIService.SetAuthToken(response.tokenResponse.access_token);
 					viewModel.set("isLoading",0);
 					Navigate(topmost);
 				}, function (error) {

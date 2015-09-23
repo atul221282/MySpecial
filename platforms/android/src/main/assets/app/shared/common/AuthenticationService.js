@@ -43,7 +43,7 @@ function GetUser(){
 * @fDescription Set token data in application setting
 */
 function SetToken(tokenData){
-	tokenData.expires_at=moment().add(tokenData.expires_in,"s");
+	tokenData.expires_at=moment().add(tokenData.expires_in+300,"s");
 	applicationSettings.setString("token_data", JSON.stringify(tokenData));
 }
 
@@ -62,12 +62,7 @@ function HasTokenExpired(){
 	if(applicationSettings.hasKey("token_data")===true){
 		var date = moment(GetToken().expires_at)
 		var now = moment();
-		if (now > date) {
-			return true;
-		} else {
-			
-			return false;
-		}
+		return (now > date);
 	}
 	throw Error("No token data");
 }

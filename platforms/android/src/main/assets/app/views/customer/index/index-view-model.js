@@ -37,6 +37,7 @@ function customerIndexViewModel(info) {
 		//alert(JSON.stringify(AuthenticationService.GetUser()));
 		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
+				alert(JSON.stringify(inData));
 			}, function (error) {
 				if (error)
 					alert(JSON.stringify(error));
