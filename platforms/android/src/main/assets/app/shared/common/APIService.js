@@ -14,7 +14,7 @@ exports.GET = function (endpoint, content, successCallBack, errorCallBack, heade
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 	else {
 		RefreshToken(function (response) {
-			AuthenticationService.SetFromRefreshToken(response.content.toJSON());
+			AuthenticationService.SetToken(response.content.toJSON());
 			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 		});
 	}
