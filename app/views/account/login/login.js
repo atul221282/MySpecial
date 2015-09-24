@@ -13,6 +13,6 @@ exports.pageLoaded = pageLoaded;
 
 function pageLoaded(args) {
 	var page = args.object;
-	
     page.bindingContext = loginVM;
+	loginVM.IsUserLoggedIn();
 }

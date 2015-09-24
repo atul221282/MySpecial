@@ -21,6 +21,7 @@ function loginViewModel(info) {
 		password: info.password || "",
 		isLoading:info.isLoading||0
 	});
+	viewModel.IsUserLoggedIn = IsUserLoggedIn;
 	viewModel.Login = Login;
 	
 	return viewModel;
@@ -31,8 +32,9 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		
-		if(AuthenticationService.GetToken() && AuthenticationService.HasTokenExpired()===false){
-			Navigate(topmost);
+		if(AuthenticationService.GetToken() 
+			&& AuthenticationService.HasTokenExpired()===false){
+				Navigate(topmost);
 		}
 		else{
 			viewModel.set("isLoading",50);
@@ -49,8 +51,13 @@ function loginViewModel(info) {
 					alert(error);
 				}, void 0);
 			}
-    
 	}
+	
+	function IsUserLoggedIn(){
+		var topmost = frameModule.topmost();
+		Navigate(topmost);
+	}
+	
 }
 
 /*

@@ -10,7 +10,7 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	if (AuthenticationService.HasTokenExpired() === true)
+	if (AuthenticationService.HasTokenExpired() === false)
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 	else {
 		RefreshToken(function (response) {

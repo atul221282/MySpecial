@@ -6,8 +6,7 @@ module.exports = {
 	GetUser : GetUser,
 	SetToken : SetToken,
 	GetToken : GetToken,
-	HasTokenExpired:HasTokenExpired,
-	SetFromRefreshToken : SetFromRefreshToken
+	HasTokenExpired : HasTokenExpired
 };
 
 /*
@@ -47,18 +46,6 @@ function SetToken(tokenData){
 		"access_token":tokenData.access_token,
 		"refresh_token":tokenData.refresh_token,
 		"expires_at":moment().add(tokenData.expires_in+300,"s")
-	}
-	applicationSettings.setString("token_data", JSON.stringify(tokenResponse));
-}
-
-/*
-* @Description Set token data in application setting
-*/
-function SetFromRefreshToken(tokenData){
-	var tokenResponse = {
-		"access_token":tokenData.AccessToken,
-		"refresh_token":tokenData.RefreshToken,
-		"expires_at":moment().add(tokenData.ExpiresIn+300,"s")
 	}
 	applicationSettings.setString("token_data", JSON.stringify(tokenResponse));
 }
