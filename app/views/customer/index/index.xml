@@ -1,11 +1,11 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="navigatedTo">
 	<StackLayout>
-		<Label text="{{ 'Welcome ' + UserDetails.user_name + ' and your subscription level is ' + UserDetails.role  }}"
-		textWrap="true"></Label> 
+		<Label text="{{ 'Welcome ' + UserDetails.user_name + ' and your subscription level is ' + UserDetails.role  }}" textWrap="true"></Label>
 		<Button text="Who am I?" tap="{{GetUserDetails}}" />
-		 
-		<Label text=" {{'Has token expired ' + IsTokenExpired}}"
-		textWrap="true"></Label>
-		 
+
+		<ScrollView>
+			<Label text=" {{'Token ' + AccessToken + ' End'}}" textWrap="true"></Label>
+		</ScrollView>
+
 	</StackLayout>
 </Page>

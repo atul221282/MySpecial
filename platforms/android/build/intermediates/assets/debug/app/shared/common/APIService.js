@@ -14,7 +14,7 @@ exports.GET = function (endpoint, content, successCallBack, errorCallBack, heade
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 	else {
 		RefreshToken(function (response) {
-			debugger;
+			AuthenticationService.SetFromRefreshToken(response.content.toJSON());
 			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 		});
 	}
@@ -55,6 +55,7 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 
 	var tokenData = AuthenticationService.GetToken();
 	if (tokenData) {
+		debugger;
 		headers.Authorization = "Bearer " + tokenData.access_token;
 	}
 	//If get we dont need content property but we need content appended
@@ -80,7 +81,6 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 }
 
 function RefreshToken(successCallBack) {
-	debugger;
 	var token = AuthenticationService.GetToken().refresh_token;
 	var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token;
     return http.request({
@@ -91,7 +91,6 @@ function RefreshToken(successCallBack) {
 			"Content-Type": "application/x-www-form-urlencoded"
 		}
 	}).then(successCallBack).catch(function (error) {
-		debugger;
 		var pp = error;
 	});
 }

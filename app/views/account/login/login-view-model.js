@@ -21,7 +21,6 @@ function loginViewModel(info) {
 		password: info.password || "",
 		isLoading:info.isLoading||0
 	});
-	
 	viewModel.Login = Login;
 	
 	return viewModel;
@@ -52,7 +51,6 @@ function loginViewModel(info) {
 			}
     
 	}
-	
 }
 
 /*
@@ -81,10 +79,3 @@ function SetUser(userData){
 function SetAuthToken(tokenData){
 	AuthenticationService.SetToken(tokenData);
 }
-
-
-
-
-
-
-
