@@ -1,12 +1,15 @@
 var applicationSettings = require("application-settings");
 var moment = require("moment");
 
+
 module.exports = {
 	SetUser : SetUser,
 	GetUser : GetUser,
 	SetToken : SetToken,
 	GetToken : GetToken,
-	HasTokenExpired : HasTokenExpired
+	HasTokenExpired : HasTokenExpired,
+	GetAccessToken : GetAccessToken,
+	GetRefreshToken : GetRefreshToken
 };
 
 /*
@@ -57,6 +60,26 @@ function GetToken(){
 	//TODO :Also Check if it is not expired
 	if(applicationSettings.hasKey("token_data")===true)
 		return JSON.parse(applicationSettings.getString("token_data"));
+	else
+		return void 0;
+}
+
+/*
+* @Description Return the access token or empty string
+*/
+function GetAccessToken(){
+	if(applicationSettings.hasKey("token_data")===true)
+		return JSON.parse(applicationSettings.getString("token_data")).access_token;
+	else
+		return void 0;
+}
+
+/*
+* @Description Return the refresh token or empty string
+*/
+function GetRefreshToken(){
+	if(applicationSettings.hasKey("token_data")===true)
+		return JSON.parse(applicationSettings.getString("token_data")).refresh_token;
 	else
 		return void 0;
 }

@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\classes-f0d0b3c97f9e053e5b8f81a75b58aecbce5c47ba.jar" />
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-42c6cb3769d0e2d03df9f45d9195b4532615bb72.jar" />
     </item>
     <item
         jar="C:\MySpecialApp\MySpecialApp\platforms\android\libs\widgets.jar"
@@ -16,18 +16,18 @@
         <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\widgets-202940171fb0ec5962ce14e39fdc3417ca56ef69.jar" />
     </item>
     <item
-        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-42c6cb3769d0e2d03df9f45d9195b4532615bb72.jar" />
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\classes-f0d0b3c97f9e053e5b8f81a75b58aecbce5c47ba.jar" />
     </item>
     <item
-        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jar="C:\Users\AtulChaudhary\AppData\Local\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\classes-c6fc0f22a5c6da6d36ec41c8a81972ec39195b44.jar" />
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-7653009d7a8c71c9f735ec2a5285f0f0611ab64e.jar" />
     </item>
     <item
         jar="C:\MySpecialApp\MySpecialApp\platforms\android\libs\nativescript.jar"
@@ -37,11 +37,11 @@
         <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\nativescript-04cbfe3e9b9de4a69b6fec88999d769801c91c34.jar" />
     </item>
     <item
-        jar="C:\Users\AtulChaudhary\AppData\Local\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jar="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-7653009d7a8c71c9f735ec2a5285f0f0611ab64e.jar" />
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\MySpecialApp\MySpecialApp\platforms\android\build\intermediates\pre-dexed\debug\classes-c6fc0f22a5c6da6d36ec41c8a81972ec39195b44.jar" />
     </item>
 
 </items>

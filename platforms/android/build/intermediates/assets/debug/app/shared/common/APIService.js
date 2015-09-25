@@ -3,18 +3,19 @@ var ConfigService = require("./ConfigService");
 var stringify = require('querystring-stable-stringify');
 var platform = require("platform");
 var AuthenticationService = require("./AuthenticationService");
-
+var commonService = require("./CommonService");
 // POST Call to an API
 exports.Post = function (endpoint, content, successCallBack, errorCallBack, headers) {
 	return pvtAPI("POST", endpoint, content, successCallBack, errorCallBack, headers);
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	if (AuthenticationService.HasTokenExpired() === true)
+	if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
+		&& AuthenticationService.HasTokenExpired() === false)
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 	else {
 		RefreshToken(function (response) {
-			AuthenticationService.SetFromRefreshToken(response.content.toJSON());
+			AuthenticationService.SetToken(response.content.toJSON());
 			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 		});
 	}
@@ -55,7 +56,6 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 
 	var tokenData = AuthenticationService.GetToken();
 	if (tokenData) {
-		debugger;
 		headers.Authorization = "Bearer " + tokenData.access_token;
 	}
 	//If get we dont need content property but we need content appended
@@ -81,16 +81,21 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 }
 
 function RefreshToken(successCallBack) {
-	var token = AuthenticationService.GetToken().refresh_token;
-	var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token;
-    return http.request({
-		url: ConfigService.apiUrl + "account/RefreshToken",
-		method: "POST",
-		content: data,
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded"
-		}
-	}).then(successCallBack).catch(function (error) {
-		var pp = error;
-	});
+	var token = AuthenticationService.GetRefreshToken();
+	if (commonService.IsEmpty(token) === false) {
+		var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token;
+		return http.request({
+			url: ConfigService.apiUrl + "account/RefreshToken",
+			method: "POST",
+			content: data,
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+		}).then(successCallBack).catch(function (error) {
+			var pp = error;
+		});
+	}
+	else{
+		throw Error("No refresh token");
+	}
 }

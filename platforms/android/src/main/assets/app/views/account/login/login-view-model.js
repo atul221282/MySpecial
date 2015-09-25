@@ -5,7 +5,7 @@ var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 var AuthenticationService = require("../../../shared/common/AuthenticationService");
-
+var commonService = require("../../../shared/common/CommonService");
 module.exports = loginViewModel;
 
 /*
@@ -53,9 +53,24 @@ function loginViewModel(info) {
 			}
 	}
 	
+	/*
+	* @description Check if user is already logged in and if yes 
+	* navigate user to their respective screen
+	*/
 	function IsUserLoggedIn(){
 		var topmost = frameModule.topmost();
-		Navigate(topmost);
+		var userData=commonService.hasNull(AuthenticationService.GetUser());
+		
+		if(userData===true) {
+			if (commonService.IsEmpty(AuthenticationService.GetAccessToken())===false
+				&& commonService.IsEmpty(AuthenticationService.GetRefreshToken())===false
+				&& AuthenticationService.HasTokenExpired() === false){
+					Navigate(topmost);
+				}
+		}
+		else {
+			Navigate(topmost);
+		}
 	}
 	
 }

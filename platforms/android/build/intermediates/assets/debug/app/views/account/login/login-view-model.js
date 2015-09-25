@@ -5,7 +5,7 @@ var observable = require("data/observable");
 var http = require("http");
 var frameModule = require("ui/frame");
 var AuthenticationService = require("../../../shared/common/AuthenticationService");
-
+var commonService = require("../../../shared/common/CommonService");
 module.exports = loginViewModel;
 
 /*
@@ -21,6 +21,7 @@ function loginViewModel(info) {
 		password: info.password || "",
 		isLoading:info.isLoading||0
 	});
+	viewModel.IsUserLoggedIn = IsUserLoggedIn;
 	viewModel.Login = Login;
 	
 	return viewModel;
@@ -31,8 +32,9 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		
-		if(AuthenticationService.GetToken() && AuthenticationService.HasTokenExpired()===false){
-			Navigate(topmost);
+		if(AuthenticationService.GetToken() 
+			&& AuthenticationService.HasTokenExpired()===false){
+				Navigate(topmost);
 		}
 		else{
 			viewModel.set("isLoading",50);
@@ -49,8 +51,36 @@ function loginViewModel(info) {
 					alert(error);
 				}, void 0);
 			}
-    
 	}
+	
+	/*
+	* @description Check if user is already logged in and if yes 
+	* navigate user to their respective screen
+	*/
+	function IsUserLoggedIn(){
+		var topmost = frameModule.topmost();
+		var userData=commonService.hasNull(AuthenticationService.GetUser());
+		
+		// alert(JSON.stringify(AuthenticationService.GetAccessToken()));
+		// alert(JSON.stringify(AuthenticationService.GetRefreshToken()));
+		debugger;
+		// alert(JSON.stringify(commonService.IsEmpty(AuthenticationService.GetAccessToken())));
+		// alert(JSON.stringify(commonService.IsEmpty(AuthenticationService.GetRefreshToken())));
+		// alert(JSON.stringify(AuthenticationService.HasTokenExpired()));
+		// alert(JSON.stringify(userData));
+		
+		if(userData===true) {
+			if (commonService.IsEmpty(AuthenticationService.GetAccessToken())===false
+				&& commonService.IsEmpty(AuthenticationService.GetRefreshToken())===false
+				&& AuthenticationService.HasTokenExpired() === false){
+					Navigate(topmost);
+				}
+		}
+		else {
+			Navigate(topmost);
+		}
+	}
+	
 }
 
 /*
