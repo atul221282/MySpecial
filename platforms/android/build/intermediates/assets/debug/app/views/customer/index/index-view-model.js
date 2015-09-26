@@ -31,7 +31,7 @@ function customerIndexViewModel(info) {
 	* @Description Alert User details from temporarily stored variable
 	* @note - TODO Get in application setting
 	*/
-	function GetUserDetails(value) {
+	function GetUserDetails() {
 		viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
 		viewModel.set("AccessToken", AuthenticationService.GetToken().access_token);
 		//alert(JSON.stringify(AuthenticationService.GetUser()));

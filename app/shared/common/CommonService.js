@@ -28,6 +28,7 @@ function hasNull(obj) {
             }
         });
     });
+    return false;
 }
 
 /*

@@ -32,11 +32,8 @@ function loginViewModel(info) {
 	function Login(){
 		var topmost = frameModule.topmost();
 		
-		if(AuthenticationService.GetToken() 
-			&& AuthenticationService.HasTokenExpired()===false){
-				Navigate(topmost);
-		}
-		else{
+		
+		
 			viewModel.set("isLoading",50);
 			APIService.Login('account/LogIn', { 
 						"UserName": viewModel.get("email"),
@@ -50,7 +47,7 @@ function loginViewModel(info) {
 					viewModel.set("isLoading",0);
 					alert(error);
 				}, void 0);
-			}
+			
 	}
 	
 	/*
@@ -59,16 +56,8 @@ function loginViewModel(info) {
 	*/
 	function IsUserLoggedIn(){
 		var topmost = frameModule.topmost();
-		var userData=commonService.hasNull(AuthenticationService.GetUser());
-		
-		if(userData===true) {
-			if (commonService.IsEmpty(AuthenticationService.GetAccessToken())===false
-				&& commonService.IsEmpty(AuthenticationService.GetRefreshToken())===false
-				&& AuthenticationService.HasTokenExpired() === false){
-					Navigate(topmost);
-				}
-		}
-		else {
+		//alert(JSON.stringify(AuthenticationService.IsUserLoggedIn()));
+		if(AuthenticationService.IsUserLoggedIn()===true){
 			Navigate(topmost);
 		}
 	}

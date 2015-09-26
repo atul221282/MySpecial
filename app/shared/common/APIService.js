@@ -10,8 +10,7 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
-		&& AuthenticationService.HasTokenExpired() === false)
+	if (AuthenticationService.IsUserLoggedIn()===true)
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 	else {
 		RefreshToken(function (response) {
@@ -42,6 +41,8 @@ exports.Login = function (endpoint, content, successCallBack, errorCallBack, hea
 		}
 	}).then(successCallBack).catch(errorCallBack);
 };
+
+exports.RefreshToken = RefreshToken;
 
 //Private method to handle ajax call
 function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, headers) {
@@ -80,10 +81,12 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 
 }
 
-function RefreshToken(successCallBack) {
+function RefreshToken(successCallBack, includeUseInfo) {
+	if(commonService.IsEmpty(includeUseInfo)===true)
+		includeUseInfo = false;
 	var token = AuthenticationService.GetRefreshToken();
 	if (commonService.IsEmpty(token) === false) {
-		var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token;
+		var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token +"&inlcude_info="+includeUseInfo;
 		return http.request({
 			url: ConfigService.apiUrl + "account/RefreshToken",
 			method: "POST",

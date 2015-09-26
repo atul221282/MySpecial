@@ -1,6 +1,6 @@
 var applicationSettings = require("application-settings");
 var moment = require("moment");
-
+var commonService = require("./CommonService");
 
 module.exports = {
 	SetUser : SetUser,
@@ -9,7 +9,8 @@ module.exports = {
 	GetToken : GetToken,
 	HasTokenExpired : HasTokenExpired,
 	GetAccessToken : GetAccessToken,
-	GetRefreshToken : GetRefreshToken
+	GetRefreshToken : GetRefreshToken,
+	IsUserLoggedIn : IsUserLoggedIn
 };
 
 /*
@@ -85,6 +86,27 @@ function GetRefreshToken(){
 }
 
 /*
+* @description Check if user is logged in
+*/
+function IsUserLoggedIn(){
+	var userData = commonService.hasNull(GetUser());
+	//alert(JSON.stringify(userData));
+	//alert(JSON.stringify(commonService.IsEmpty(GetRefreshToken())));
+	//alert(JSON.stringify(commonService.IsEmpty(GetAccessToken())));
+	//alert(JSON.stringify(HasTokenExpired()));
+	
+	if(userData === false //make sure we got data 
+		&& commonService.IsEmpty(GetRefreshToken())===false //make sure we got refresh token
+		&& commonService.IsEmpty(GetAccessToken())===false
+		&& HasTokenExpired()===false){//make sure we have access token
+			return true;
+		}
+		else
+			return false;
+	
+}
+
+/*
 * @Decription Return true if token has expired else false
 */
 function HasTokenExpired(){
@@ -93,4 +115,8 @@ function HasTokenExpired(){
 		return (moment() > moment(GetToken().expires_at));
 	}
 	throw Error("No token data");
+}
+
+function ClearAll(){
+	
 }
