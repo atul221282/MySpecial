@@ -10,15 +10,16 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
-		&& AuthenticationService.HasTokenExpired() === false)
+	// if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
+	// 	&& AuthenticationService.HasTokenExpired() === false)
+	// 	return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
+	// else {
+
+	var refreshToken = RefreshToken();
+	refreshToken.then(function () {
 		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
-	else {
-		RefreshToken(function (response) {
-			AuthenticationService.SetToken(response.content.toJSON());
-			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
-		});
-	}
+	})
+	//}
 };
 //Unauthorised POST Call to an API
 exports.UnPost = function (endpoint, content, successCallBack, errorCallBack, headers) {
@@ -82,24 +83,40 @@ function pvtAPI(method, endpoint, content, successCallBack, errorCallBack, heade
 
 }
 
-function RefreshToken(successCallBack, includeUseInfo) {
-	if(commonService.IsEmpty(includeUseInfo)===true)
-		includeUseInfo = false;
+function RefreshToken(successCallBack, includeUserInfo) {
+
+	if (commonService.IsEmpty(includeUserInfo) === true
+		|| commonService.hasNull(AuthenticationService.GetUser()) === true)
+		includeUserInfo = true;
+	else
+		includeUserInfo = false;
+
 	var token = AuthenticationService.GetRefreshToken();
 	if (commonService.IsEmpty(token) === false) {
-		var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token +"&inlcude_info="+includeUseInfo;
-		return http.request({
+		var data = "grant_type=" + "refresh_token" + "&refresh_token=" + token + "&inlcude_info=" + includeUserInfo;
+		var request = http.request({
 			url: ConfigService.apiUrl + "account/RefreshToken",
 			method: "POST",
 			content: data,
 			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded "
 			}
-		}).then(successCallBack).catch(function (error) {
-			var pp = error;
 		});
+		request.then(function (data) {
+			var response = data.content.toJSON();
+			if (includeUserInfo === false) {
+				AuthenticationService.SetToken(response);
+			}
+			else {
+				AuthenticationService.SetToken(response.tokenResponse);
+				AuthenticationService.SetUser(response.userInfo);
+			}
+		}).catch(function (error) {
+			alert(JSON.stringify(error));
+		});
+		return request;
 	}
-	else{
+	else {
 		throw Error("No refresh token");
 	}
 }

@@ -35,7 +35,8 @@ function customerIndexViewModel(info) {
 		viewModel.set("IsTokenExpired", AuthenticationService.HasTokenExpired());
 		viewModel.set("AccessToken", AuthenticationService.GetToken().access_token);
 		//alert(JSON.stringify(AuthenticationService.GetUser()));
-		APIService.GET("protected/GetUserByEmail", { "emailAddress": viewModel.get("UserDetails").Name }
+		APIService.GET("protected/GetUserByEmail", { 
+			"emailAddress": viewModel.get("UserDetails").Name }
 			, function (inData) {
 				alert(JSON.stringify(inData));
 			}, function (error) {

@@ -90,20 +90,27 @@ function GetRefreshToken(){
 */
 function IsUserLoggedIn(){
 	var userData = commonService.hasNull(GetUser());
-	//alert(JSON.stringify(userData));
-	//alert(JSON.stringify(commonService.IsEmpty(GetRefreshToken())));
+	alert(JSON.stringify(userData));
+	alert(JSON.stringify(commonService.IsEmpty(GetRefreshToken())));
 	//alert(JSON.stringify(commonService.IsEmpty(GetAccessToken())));
 	//alert(JSON.stringify(HasTokenExpired()));
-	debugger;
-	if(userData === false //make sure we got data 
-		&& commonService.IsEmpty(GetRefreshToken())===false //make sure we got refresh token
-		&& commonService.IsEmpty(GetAccessToken())===false
-		&& HasTokenExpired()===false){//make sure we have access token
+	
+	// if(userData === false //make sure we got data 
+	// 	&& commonService.IsEmpty(GetRefreshToken())===false //make sure we got refresh token
+	// 	&& commonService.IsEmpty(GetAccessToken())===false
+	// 	&& HasTokenExpired()===false){//make sure we have access token
+	// 		return true;
+	// 	}
+	// 	else
+	// 		return false;
+			
+	if(userData === false //make sure we got user info 
+		&& commonService.IsEmpty(GetRefreshToken())===false)//make sure we got refresh token
+		{//make sure we have access token
 			return true;
 		}
 		else
 			return false;
-	
 }
 
 /*

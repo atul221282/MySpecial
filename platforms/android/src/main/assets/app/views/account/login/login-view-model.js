@@ -45,7 +45,7 @@ function loginViewModel(info) {
 					Navigate(topmost);
 				}, function (error) {
 					viewModel.set("isLoading",0);
-					alert(error);
+					//alert(error);
 				}, void 0);
 			
 	}

@@ -45,7 +45,7 @@ function loginViewModel(info) {
 					Navigate(topmost);
 				}, function (error) {
 					viewModel.set("isLoading",0);
-					alert(error);
+					//alert(error);
 				}, void 0);
 			
 	}
@@ -56,7 +56,7 @@ function loginViewModel(info) {
 	*/
 	function IsUserLoggedIn(){
 		var topmost = frameModule.topmost();
-		alert(JSON.stringify(AuthenticationService.IsUserLoggedIn()));
+		//alert(JSON.stringify(AuthenticationService.IsUserLoggedIn()));
 		if(AuthenticationService.IsUserLoggedIn()===true){
 			Navigate(topmost);
 		}
