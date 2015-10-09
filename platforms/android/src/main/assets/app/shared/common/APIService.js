@@ -10,15 +10,15 @@ exports.Post = function (endpoint, content, successCallBack, errorCallBack, head
 };
 // GET Call to an API
 exports.GET = function (endpoint, content, successCallBack, errorCallBack, headers) {
-	// if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
-	// 	&& AuthenticationService.HasTokenExpired() === false)
-	// 	return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
-	// else {
+	if (commonService.IsEmpty(AuthenticationService.GetAccessToken()) === false
+		&& AuthenticationService.HasTokenExpired() === false)
+		return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
+	else {
 		var refreshToken = RefreshToken();
 		refreshToken.then(function () {
 			return pvtAPI("GET", endpoint, content, successCallBack, errorCallBack, headers);
 		});
-	// }
+	}
 };
 //Unauthorised POST Call to an API
 exports.UnPost = function (endpoint, content, successCallBack, errorCallBack, headers) {

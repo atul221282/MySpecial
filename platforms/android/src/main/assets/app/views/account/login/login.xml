@@ -5,6 +5,5 @@
     <TextField hint="Email Address" keyboardType="email" id="tfEmailAddress" text="{{ email }}" />
     <TextField hint="Password" secure="true" id="tfPassword" text="{{ password }}" />
     <Button text="Sign In" tap="{{ Login }}" />
-  
   </StackLayout>
 </Page>

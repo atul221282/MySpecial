@@ -31,23 +31,19 @@ function loginViewModel(info) {
 	*/
 	function Login(){
 		var topmost = frameModule.topmost();
-		
-		
-		
-			viewModel.set("isLoading",50);
-			APIService.Login('account/LogIn', { 
-						"UserName": viewModel.get("email"),
-						"Password": viewModel.get("password") }, function (data) {
-					var response=data.content.toJSON();
-					SetAuthToken(response.tokenResponse);
-					SetUser(response.userInfo);
-					viewModel.set("isLoading",0);
-					Navigate(topmost);
-				}, function (error) {
-					viewModel.set("isLoading",0);
-					//alert(error);
-				}, void 0);
-			
+		viewModel.set("isLoading",50);
+		APIService.Login('account/LogIn', { 
+			"UserName": viewModel.get("email"),
+			"Password": viewModel.get("password") }, function (data) {
+			var response=data.content.toJSON();
+				SetAuthToken(response.tokenResponse);
+				SetUser(response.userInfo);
+				viewModel.set("isLoading",0);
+				Navigate(topmost);
+			}, function (error) {
+				viewModel.set("isLoading",0);
+				//alert(error);
+			}, void 0);
 	}
 	
 	/*
@@ -56,7 +52,6 @@ function loginViewModel(info) {
 	*/
 	function IsUserLoggedIn(){
 		var topmost = frameModule.topmost();
-		//alert(JSON.stringify(AuthenticationService.IsUserLoggedIn()));
 		if(AuthenticationService.IsUserLoggedIn()===true){
 			Navigate(topmost);
 		}
